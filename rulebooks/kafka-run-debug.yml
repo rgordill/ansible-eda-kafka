@@ -1,4 +1,5 @@
 ---
+
 - name: Run Kafka Debugger
   hosts: all
   vars:
@@ -14,6 +15,7 @@
 
   rules:
     - name: "When a message is received on topic 'eda', print its content"
+      condition: event.body is defined
       actions:
         - debug:
             msg: "Received message on topic 'eda': {{ event.body }}"
