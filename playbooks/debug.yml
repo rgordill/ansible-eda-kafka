@@ -1,0 +1,12 @@
+---
+
+- name: Default Debug Playbook
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    kafka_host: "{{ kafka_broker }}:{{ kafka_port | default(9092) }}"   # comma-separated or single host:port
+  tasks:
+    - name: Display Kafka host
+      ansible.builtin.debug:
+        var: kafka_host
