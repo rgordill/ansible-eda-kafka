@@ -18,4 +18,4 @@
       condition: event.body is defined
       actions:
         - debug:
-            msg: "Received message on topic 'eda': {{ event.body }}"
+            msg: "Received message on topic 'eda': {{ event }}"
