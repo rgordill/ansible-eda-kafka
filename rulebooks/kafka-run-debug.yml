@@ -1,0 +1,19 @@
+---
+- name: Run Kafka Debugger
+  hosts: all
+  vars:
+    kafka_broker: ""
+  sources:
+    - ansible.eda.kafka:
+        host: "{{ kafka_broker | default('localhost') }}"
+        port: "{{ kafka_port | default(9092) }}"
+        topics:
+          - "eda"
+        check_hostname: false
+        group_id: "ansible-eda-group"
+
+  rules:
+    - name: "When a message is received on topic 'eda', print its content"
+      actions:
+        - debug:
+            msg: "Received message on topic 'eda': {{ event.body }}"
