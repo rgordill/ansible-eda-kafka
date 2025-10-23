@@ -20,5 +20,5 @@
         - debug:
             msg: "Received message on topic 'eda': {{ event }}"
 
-        - debug:
-            msg: "Message body (as bytes): {{ event.body | b64encode }}"
+        - run_job_template:
+            name: eda-kafka-debugger-playbook

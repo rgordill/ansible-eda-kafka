@@ -4,9 +4,11 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  vars:
-    kafka_host: "{{ kafka_broker }}:{{ kafka_port | default(9092) }}"   # comma-separated or single host:port
   tasks:
-    - name: Display Kafka host
+    - name: Debug received Kafka message
       ansible.builtin.debug:
-        var: kafka_host
+        msg: "Received message on topic 'eda': {{ event }}"
+
+    - name: Debug message body in base64
+      ansible.builtin.debug:
+        msg: "Message body (base64 encoded): {{ event.body | b64encode }}"
