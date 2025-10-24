@@ -22,3 +22,5 @@
 
         - run_job_template:
             name: eda-kafka-debugger-playbook
+            wait: false
+            organization: "OCP"
