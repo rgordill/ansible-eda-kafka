@@ -5,10 +5,14 @@
   connection: local
   gather_facts: false
   tasks:
-    - name: Debug received Kafka message
+    - name: Debug received vars
       ansible.builtin.debug:
-        msg: "Received message on topic 'eda': {{ event }}"
+        var: vars
 
-    - name: Debug message body in base64
-      ansible.builtin.debug:
-        msg: "Message body (base64 encoded): {{ event.body | b64encode }}"
+    # - name: Debug received Kafka message
+    #   ansible.builtin.debug:
+    #     msg: "Received message on topic 'eda': {{ event }}"
+
+    # - name: Debug message body in base64
+    #   ansible.builtin.debug:
+    #     msg: "Message body (base64 encoded): {{ event.body | b64encode }}"
