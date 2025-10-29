@@ -4,7 +4,7 @@
   hosts: all
   sources:
     - ansible.eda.kafka:
-        host: strimzi-auth-bootstrap.kafka.svc
+        host: strimzi-auth-kafka-bootstrap.kafka.svc
         port: 9092
         # host: "{{ kafka_broker | default('localhost') }}"
         # port: "{{ kafka_port | default(9092) }}"
