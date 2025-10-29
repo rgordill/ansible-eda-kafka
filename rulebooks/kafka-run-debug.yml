@@ -6,7 +6,7 @@
     - ansible.eda.kafka:
         host: "{{ kafka_broker | default('localhost') }}"
         port: "{{ kafka_port | default(9092) }}"
-        # cafile: "{{ eda.filename.cafile }}"
+        cafile: "{{ eda.filename }}"
         security_protocol: "{{ kafka_security_protocol | default('PLAINTEXT') }}"
         sasl_mechanism: "{{ kafka_sasl_mechanism | default('') }}"
         sasl_plain_username: "{{ kafka_username | default('') }}"
@@ -20,9 +20,6 @@
     - name: "When a message is received on topic 'eda', print its content"
       condition: event.body is defined
       actions:
-        - debug:
-            var: vars
-
         - debug:
             msg: "Received message on topic 'eda': {{ event }}"
 
