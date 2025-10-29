@@ -2,16 +2,19 @@
 
 - name: Run Kafka Debugger
   hosts: all
-  vars:
-    kafka_broker: ""
   sources:
     - ansible.eda.kafka:
         host: "{{ kafka_broker | default('localhost') }}"
         port: "{{ kafka_port | default(9092) }}"
+        cafile: "{{ eda.filename.cafile | default(omit) }}"
+        security_protocol: "{{ kafka_security_protocol | default('PLAINTEXT') }}"
+        sasl_mechanism: "{{ kafka_sasl_mechanism | default(omit) }}"
+        sasl_plain_username: "{{ kafka_username | default(omit) }}"
+        sasl_plain_password: "{{ kafka_password | default(omit) }}"
         topics:
-          - "eda"
-        check_hostname: false
-        group_id: "ansible-eda-group"
+          - "{{ kafka_topic | default('eda') }}"
+        check_hostname: "{{ kafka_ssl_check_hostname | default(false) }}"
+        group_id: "ansible-{{ kafka_topic | default('eda') }}-group"
 
   rules:
     - name: "When a message is received on topic 'eda', print its content"

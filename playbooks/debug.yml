@@ -9,10 +9,14 @@
       ansible.builtin.debug:
         var: vars
 
+    - name: Debug received vars
+      ansible.builtin.debug:
+        var: extra_vars
+
     # - name: Debug received Kafka message
     #   ansible.builtin.debug:
-    #     msg: "Received message on topic 'eda': {{ event }}"
+    #     msg: "Received message on topic 'eda': {{ ansible_eda.event }}"
 
     # - name: Debug message body in base64
     #   ansible.builtin.debug:
-    #     msg: "Message body (base64 encoded): {{ event.body | b64encode }}"
+    #     msg: "Message body (base64 encoded): {{ ansible_eda.event.body | b64encode }}"
