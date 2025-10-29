@@ -6,7 +6,7 @@
     - ansible.eda.kafka:
         host: "{{ kafka_broker | default('localhost') }}"
         port: "{{ kafka_port | default(9092) }}"
-        cafile: "{{ eda.filename.cafile }}"
+        # cafile: "{{ eda.filename.cafile }}"
         security_protocol: "{{ kafka_security_protocol | default('PLAINTEXT') }}"
         sasl_mechanism: "{{ kafka_sasl_mechanism }}"
         sasl_plain_username: "{{ kafka_username}}"
