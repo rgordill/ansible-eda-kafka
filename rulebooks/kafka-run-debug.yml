@@ -21,17 +21,10 @@
       condition: event.body is defined
       actions:
         - debug:
-            var: "{{ item }}"
-            loop:
-              - kafka_broker
-              - kafka_port
-              - eda.filename
-              - kafka_security_protocol
-              - kafka_sasl_mechanism
-              - kafka_username
-              - kafka_password
-              - kafka_topic
-              - kafka_ssl_check_hostname
+            var: vars
+
+        - debug:
+            var: extra_vars
 
         - debug:
             msg: "Received message on topic 'eda': {{ event }}"
