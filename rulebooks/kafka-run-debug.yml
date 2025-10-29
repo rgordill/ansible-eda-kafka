@@ -21,6 +21,9 @@
       condition: event.body is defined
       actions:
         - debug:
+            var: vars
+
+        - debug:
             msg: "Received message on topic 'eda': {{ event }}"
 
         - run_job_template:
