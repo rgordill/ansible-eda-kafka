@@ -8,9 +8,9 @@
         port: "{{ kafka_port | default(9092) }}"
         # cafile: "{{ eda.filename.cafile }}"
         security_protocol: "{{ kafka_security_protocol | default('PLAINTEXT') }}"
-        sasl_mechanism: "{{ kafka_sasl_mechanism | default(null) }}"
-        sasl_plain_username: "{{ kafka_username | default(null) }}"
-        sasl_plain_password: "{{ kafka_password | default(null) }}"
+        sasl_mechanism: "{{ kafka_sasl_mechanism if kafka_sasl_mechanism is defined else omit }}"
+        sasl_plain_username: "{{ kafka_username if kafka_username is defined else omit }}"
+        sasl_plain_password: "{{ kafka_password if kafka_password is defined else omit }}"
         topics:
           - "{{ kafka_topic | default('eda') }}"
         check_hostname: "{{ kafka_ssl_check_hostname | default(false) }}"
