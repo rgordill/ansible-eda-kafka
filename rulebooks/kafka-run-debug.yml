@@ -6,11 +6,11 @@
     - ansible.eda.kafka:
         host: "{{ kafka_broker | default('localhost') }}"
         port: "{{ kafka_port | default(9092) }}"
-        # cafile: "{{ eda.filename }}"
-        # security_protocol: "{{ kafka_security_protocol | default('PLAINTEXT') }}"
-        # sasl_mechanism: "{{ kafka_sasl_mechanism | default('') }}"
-        # sasl_plain_username: "{{ kafka_username | default('') }}"
-        # sasl_plain_password: "{{ kafka_password | default('') }}"
+        cafile: "{{ eda.filename }}"
+        security_protocol: "{{ kafka_security_protocol | default('PLAINTEXT') }}"
+        sasl_mechanism: "{{ kafka_sasl_mechanism | default('') }}"
+        sasl_plain_username: "{{ kafka_username | default('') }}"
+        sasl_plain_password: "{{ kafka_password | default('') }}"
         topics:
           - "{{ kafka_topic | default('eda') }}"
         check_hostname: "{{ kafka_ssl_check_hostname | default(false) }}"
