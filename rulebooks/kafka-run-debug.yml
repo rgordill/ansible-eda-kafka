@@ -29,4 +29,5 @@
             wait: false
             organization: "OCP"
             jobs_args:
-              - schema_registry_url: {{ schema_registry_url }}
+              extra_vars:
+                - schema_registry_url: {{ schema_registry_url }}
