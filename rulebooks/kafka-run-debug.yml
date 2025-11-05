@@ -30,6 +30,6 @@
             name: eda-kafka-debugger-playbook
             wait: false
             organization: "OCP"
-            jobs_args:
+            job_args:
               extra_vars:
                 schema_registry_url: "{{ schema_registry_url }}"
