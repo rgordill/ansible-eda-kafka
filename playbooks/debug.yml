@@ -9,14 +9,30 @@
       ansible.builtin.debug:
         var: vars
 
-    - name: Debug received vars
+    - name: Get schema id from avro binary message
+      ansible.builtin.set_fact:
+        schema_id_from_message: "{{ ansible_eda.event.body | redhat_iberia.kafka.schema_id_from_avro() }}"
+
+    - name: Debug schema id from avro binary message
       ansible.builtin.debug:
-        var: extra_vars
+        msg: "Schema ID from Avro message: {{ schema_id_from_message }}"
 
-    # - name: Debug received Kafka message
-    #   ansible.builtin.debug:
-    #     msg: "Received message on topic 'eda': {{ ansible_eda.event }}"
+    - name: Get schema from schema registry using http get api with the schema_id from message
+      ansible.builtin.uri:
+        url: "{{ schema_registry_url }}/schemas/ids/{{ schema_id_from_message }}"
+        method: GET
+        return_content: true
+      register: schema_registry_response_from_message
 
-    # - name: Debug message body in base64
-    #   ansible.builtin.debug:
-    #     msg: "Message body (base64 encoded): {{ ansible_eda.event.body | b64encode }}"
+    - name: Get the avro message from avro binary using the schema from schema registry
+      ansible.builtin.set_fact:
+        message_from_avro: >-
+          {{ event_eda | redhat_iberia.kafka.message_from_avro(
+              schema_registry_response_from_message.json.schema | from_json,
+              schema_id=schema_id_from_message
+            )
+          }}
+
+    - name: Debug message from avro binary
+      ansible.builtin.debug:
+        msg: "Message from Avro binary: {{ message_from_avro }}"
