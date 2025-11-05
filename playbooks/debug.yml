@@ -24,10 +24,14 @@
         return_content: true
       register: schema_registry_response_from_message
 
+    - name: Debug schema registry response from message
+      ansible.builtin.debug:
+        msg: "Schema Retrieved: {{ schema_registry_response_from_message.json }}"
+
     - name: Get the avro message from avro binary using the schema from schema registry
       ansible.builtin.set_fact:
         message_from_avro: >-
-          {{ ansible_eda | redhat_iberia.kafka.message_from_avro(
+          {{ ansible_eda.event.body | redhat_iberia.kafka.message_from_avro(
               schema_registry_response_from_message.json.schema | from_json,
               schema_id=schema_id_from_message
             )
